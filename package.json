@@ -1,0 +1,31 @@
+{
+	"name": "gulp-htmllint",
+	"version": "0.0.1",
+	"description": "Check HTML code style with htmllint",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/denk/gulp-htmllint"
+	},
+	"author": {
+		"name": "Yannick Van Avermaet",
+		"email": "yvanavermaet@gmail.com"
+	},
+	"keywords": [
+		"gulpplugin",
+		"htmllint",
+		"code",
+		"style",
+		"lint"
+	],
+	"main": "./src/index.js",
+	"dependencies": {
+		"gulp-util": "^3.0.4",
+		"htmllint": "^0.2.3",
+		"through2": "^0.6.3"
+	},
+	"bugs": {
+		"url": "https://github.com/denk/gulp-htmllint/issues"
+	},
+	"homepage": "https://github.com/denk/gulp-htmllint"
+}
