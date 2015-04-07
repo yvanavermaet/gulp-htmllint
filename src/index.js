@@ -11,10 +11,20 @@ var htmllintPlugin = function(options) {
 	}
 
 	var configPath = options.config || '.htmllintrc',
+		plugins = options.plugins || [],
+		htmllintOptions = {},
 		out = [];
 
+	// load htmllint rules
 	if (fs.existsSync(configPath)) {
-		options = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+		htmllintOptions = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+	}
+
+	// use plugins
+	htmllint.use(plugins);
+
+	if (options.maxerr) {
+		htmllintOptions.maxerr = options.maxerr;
 	}
 
 	return through.obj(function(file, enc, cb) {
@@ -28,7 +38,7 @@ var htmllintPlugin = function(options) {
 			return;
 		}
 
-		var lint = htmllint(file.contents.toString(), options);
+		var lint = htmllint(file.contents.toString(), htmllintOptions);
 
 		lint.then(function(issues) {
 			if (issues.length > 0) {
