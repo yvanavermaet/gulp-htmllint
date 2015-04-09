@@ -5,7 +5,7 @@ var fs = require('fs'),
 	htmllint = require('htmllint'),
 	through = require('through2');
 
-var htmllintPlugin = function(options) {
+module.exports = function(options) {
 	if (typeof options === 'undefined') {
 		options = {};
 	}
@@ -30,11 +30,13 @@ var htmllintPlugin = function(options) {
 	return through.obj(function(file, enc, cb) {
 		if (file.isNull()) {
 			cb(null, file);
+
 			return;
 		}
 
 		if (file.isStream()) {
 			cb(new gutil.PluginError('gulp-htmllint', 'Streaming not supported'));
+
 			return;
 		}
 
@@ -59,5 +61,3 @@ var htmllintPlugin = function(options) {
 		cb();
 	});
 };
-
-module.exports = htmllintPlugin;
