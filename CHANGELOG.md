@@ -1,6 +1,12 @@
 Release History
 ---------------
 
+### v0.0.5
+
+* replaced jscs and jshint with ESLint
+* added tests (basic)
+* added travis integration
+
 ### v0.0.4
 
 * added jscs and jshint
