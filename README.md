@@ -1,4 +1,4 @@
-# gulp-htmllint
+# gulp-htmllint [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
 
 This module is an interface layer for [htmllint](https://github.com/htmllint/htmllint/).
 
@@ -33,3 +33,10 @@ Type: `Array`
 Default value: `[]`
 
 An array of strings, each of which should be the name of an htmllint plugin to require and use.
+
+[npm-url]: https://www.npmjs.com/package/gulp-htmllint
+[npm-image]: https://badge.fury.io/js/gulp-htmllint.svg
+[travis-url]: https://travis-ci.org/yvanavermaet/gulp-htmllint
+[travis-image]: https://img.shields.io/travis/yvanavermaet/gulp-htmllint.svg?branch=master
+[depstat-url]: https://david-dm.org/yvanavermaet/gulp-htmllint
+[depstat-image]: https://david-dm.org/yvanavermaet/gulp-htmllint.svg
