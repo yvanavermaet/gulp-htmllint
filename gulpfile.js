@@ -1,16 +1,20 @@
 'use strict';
 
 var gulp = require('gulp'),
-	jscs = require('gulp-jscs'),
-	jscsStylish = require('gulp-jscs-stylish'),
-	jshint = require('gulp-jshint');
+	eslint = require('gulp-eslint');
+
+// lint
+gulp.task('lint', function() {
+	return gulp.src([
+			'./src/**/*.js',
+			'./test/**/*.js',
+			'./gulpfile.js'
+		])
+		.pipe(eslint())
+		.on('error', function() {})
+		.pipe(eslint.format())
+		.pipe(eslint.failAfterError());
+});
 
 // default task
-gulp.task('default', function() {
-	return gulp.src('src/**/*.js')
-		.pipe(jshint())
-		.pipe(jscs())
-		.on('error', function() {})
-		.pipe(jscsStylish.combineWithHintResults())
-		.pipe(jshint.reporter('jshint-stylish'));
-});
+gulp.task('default', ['lint'], function() {});
