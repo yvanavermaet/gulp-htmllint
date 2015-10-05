@@ -5,7 +5,7 @@ var fs = require('fs'),
 	htmllint = require('htmllint'),
 	through = require('through2');
 
-module.exports = function(options) {
+module.exports = function(options, reporter) {
 	if (typeof options === 'undefined') {
 		options = {};
 	}
@@ -42,19 +42,25 @@ module.exports = function(options) {
 
 		var lint = htmllint(file.contents.toString(), htmllintOptions);
 
-		lint.then(function(issues) {
-			if (issues.length > 0) {
-				out.push('\n' + file.path);
-			}
-
-			issues.forEach(function(issue) {
-				out.push(gutil.colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + (issue.msg || htmllint.messages.renderIssue(issue)) + ' (' + issue.code + ')'));
+		if (typeof reporter !== 'function') {
+			lint.then(function(issues) {
+				if (issues.length > 0) {
+					out.push('\n' + file.path);
+				}
+	
+				issues.forEach(function(issue) {
+					out.push(gutil.colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + (issue.msg || htmllint.messages.renderIssue(issue)) + ' (' + issue.code + ')'));
+				});
 			});
-		});
+		} else {
+			lint.then(function(issues) {
+				reporter(file.path, issues);
+			});
+		}
 
 		cb(null, file);
 	}, function(cb) {
-		if (out.length > 0) {
+		if (out.length > 0 && typeof reporter !== 'function') {
 			gutil.log(out.join('\n'));
 		}
 
