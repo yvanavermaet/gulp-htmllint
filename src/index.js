@@ -47,7 +47,7 @@ module.exports = function(options, reporter) {
 				if (issues.length > 0) {
 					out.push('\n' + file.path);
 				}
-	
+
 				issues.forEach(function(issue) {
 					out.push(gutil.colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + (issue.msg || htmllint.messages.renderIssue(issue)) + ' (' + issue.code + ')'));
 				});
