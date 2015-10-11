@@ -37,5 +37,8 @@
 	"bugs": {
 		"url": "https://github.com/yvanavermaet/gulp-htmllint/issues"
 	},
-	"homepage": "https://github.com/yvanavermaet/gulp-htmllint"
+	"homepage": "https://github.com/yvanavermaet/gulp-htmllint",
+	"contributors": [{
+		"name": "Rickard Staaf"
+	}]
 }
