@@ -5,7 +5,7 @@ var fs = require('fs'),
 	htmllint = require('htmllint'),
 	through = require('through2');
 
-module.exports = function(options) {
+module.exports = function(options, reporter) {
 	var configPath, plugins,
 		htmllintOptions = {},
 		out = [];
@@ -30,6 +30,8 @@ module.exports = function(options) {
 	}
 
 	return through.obj(function(file, enc, cb) {
+		var lint;
+
 		if (file.isNull()) {
 			cb(null, file);
 
@@ -42,19 +44,27 @@ module.exports = function(options) {
 			return;
 		}
 
-		htmllint(file.contents.toString(), htmllintOptions).then(function(issues) {
-			if (issues.length > 0) {
-				out.push('\n' + file.path);
-			}
+		lint = htmllint(file.contents.toString(), htmllintOptions);
 
-			issues.forEach(function(issue) {
-				out.push(gutil.colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + (issue.msg || htmllint.messages.renderIssue(issue)) + ' (' + issue.code + ')'));
+		if (typeof reporter !== 'function') {
+			lint.then(function(issues) {
+				if (issues.length > 0) {
+					out.push('\n' + file.path);
+				}
+
+				issues.forEach(function(issue) {
+					out.push(gutil.colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + (issue.msg || htmllint.messages.renderIssue(issue)) + ' (' + issue.code + ')'));
+				});
 			});
-		});
+		} else {
+			lint.then(function(issues) {
+				reporter(file.path, issues);
+			});
+		}
 
 		cb(null, file);
 	}, function(cb) {
-		if (out.length > 0) {
+		if (out.length > 0 && typeof reporter !== 'function') {
 			gutil.log(out.join('\n'));
 
 			if (options.failOnError) {
