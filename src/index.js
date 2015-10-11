@@ -56,6 +56,10 @@ module.exports = function(options) {
 	}, function(cb) {
 		if (out.length > 0) {
 			gutil.log(out.join('\n'));
+
+			if (options.failOnError) {
+				process.exitCode = 1;
+			}
 		}
 
 		cb();

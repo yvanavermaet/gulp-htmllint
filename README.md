@@ -34,6 +34,12 @@ Default value: `[]`
 
 An array of strings, each of which should be the name of an htmllint plugin to require and use.
 
+#### options.failOnError
+Type: `Boolean`
+Default value: false
+
+Boolean value to define if the process should exit with a code of 1 on htmllint errors.
+
 [npm-url]: https://www.npmjs.com/package/gulp-htmllint
 [npm-image]: https://badge.fury.io/js/gulp-htmllint.svg
 [travis-url]: https://travis-ci.org/yvanavermaet/gulp-htmllint

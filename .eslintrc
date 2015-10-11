@@ -3,6 +3,7 @@ globals:
   module: false
   describe: false
   it: false
+  process: false
 
 rules:
   # Possible Errors
