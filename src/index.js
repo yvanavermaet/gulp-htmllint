@@ -6,14 +6,16 @@ var fs = require('fs'),
 	through = require('through2');
 
 module.exports = function(options) {
+	var configPath, plugins,
+		htmllintOptions = {},
+		out = [];
+
 	if (typeof options === 'undefined') {
 		options = {};
 	}
 
-	var configPath = options.config || '.htmllintrc',
-		plugins = options.plugins || [],
-		htmllintOptions = {},
-		out = [];
+	configPath = options.config || '.htmllintrc';
+	plugins = options.plugins || [];
 
 	// load htmllint rules
 	if (fs.existsSync(configPath)) {
@@ -40,9 +42,7 @@ module.exports = function(options) {
 			return;
 		}
 
-		var lint = htmllint(file.contents.toString(), htmllintOptions);
-
-		lint.then(function(issues) {
+		htmllint(file.contents.toString(), htmllintOptions).then(function(issues) {
 			if (issues.length > 0) {
 				out.push('\n' + file.path);
 			}
