@@ -1,6 +1,12 @@
 Release History
 ---------------
 
+### v0.0.6
+
+* updated npm modules
+* added new option "failOnError"
+* possible to add a custom reporter
+
 ### v0.0.5
 
 * replaced jscs and jshint with ESLint

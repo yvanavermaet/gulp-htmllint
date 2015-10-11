@@ -58,6 +58,9 @@ module.exports = function(options, reporter) {
 			});
 		} else {
 			lint.then(function(issues) {
+				issues.forEach(function(issue) {
+					issue.msg = issue.msg || htmllint.messages.renderIssue(issue);
+				});
 				reporter(file.path, issues);
 			});
 		}
