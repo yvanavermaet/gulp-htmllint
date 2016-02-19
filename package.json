@@ -35,7 +35,7 @@
 		"htmllint": "^0.2.6"
 	},
 	"scripts": {
-		"test": "./node_modules/gulp/bin/gulp.js test"
+		"test": "gulp test"
 	},
 	"bugs": {
 		"url": "https://github.com/yvanavermaet/gulp-htmllint/issues"
