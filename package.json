@@ -22,8 +22,10 @@
 	"main": "./src/index.js",
 	"dependencies": {
 		"gulp-util": "^3.0.6",
-		"htmllint": "^0.2.6",
 		"through2": "^2.0.0"
+	},
+	"peerDependencies": {
+		"htmllint": "^0.2.6"
 	},
 	"devDependencies": {
 		"gulp": "^3.9.0",
