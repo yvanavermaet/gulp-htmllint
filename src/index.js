@@ -55,19 +55,24 @@ module.exports = function(options, reporter) {
 				issues.forEach(function(issue) {
 					out.push(gutil.colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + (issue.msg || htmllint.messages.renderIssue(issue)) + ' (' + issue.code + ')'));
 				});
+			}).catch(function(error) {
+				out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
 			});
 		} else {
 			lint.then(function(issues) {
 				issues.forEach(function(issue) {
 					issue.msg = issue.msg || htmllint.messages.renderIssue(issue);
 				});
+
 				reporter(file.path, issues);
+			}).catch(function(error) {
+				out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
 			});
 		}
 
 		cb(null, file);
 	}, function(cb) {
-		if (out.length > 0 && typeof reporter !== 'function') {
+		if (out.length > 0) {
 			gutil.log(out.join('\n'));
 
 			if (options.failOnError) {
