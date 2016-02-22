@@ -1,6 +1,9 @@
 Release History
 ---------------
 
+### v0.0.7
+* Bugfix for #6: Catch the htmllint Promise reject-handler
+
 ### v0.0.6
 
 * updated npm modules
