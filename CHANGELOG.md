@@ -1,6 +1,9 @@
 Release History
 ---------------
 
+### v0.0.8
+* Update dependencies
+
 ### v0.0.7
 * Bugfix for #6: Catch the htmllint Promise reject-handler
 
