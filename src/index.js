@@ -46,7 +46,17 @@ module.exports = function(options, reporter) {
 
 		lint = htmllint(file.contents.toString(), htmllintOptions);
 
-		if (typeof reporter !== 'function') {
+		if (typeof reporter === 'function') {
+			lint.then(function(issues) {
+				issues.forEach(function(issue) {
+					issue.msg = issue.msg || htmllint.messages.renderIssue(issue);
+				});
+
+				reporter(file.path, issues);
+			}).catch(function(error) {
+				out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
+			});
+		} else {
 			lint.then(function(issues) {
 				if (issues.length > 0) {
 					out.push('\n' + file.path);
@@ -55,16 +65,6 @@ module.exports = function(options, reporter) {
 				issues.forEach(function(issue) {
 					out.push(gutil.colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + (issue.msg || htmllint.messages.renderIssue(issue)) + ' (' + issue.code + ')'));
 				});
-			}).catch(function(error) {
-				out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
-			});
-		} else {
-			lint.then(function(issues) {
-				issues.forEach(function(issue) {
-					issue.msg = issue.msg || htmllint.messages.renderIssue(issue);
-				});
-
-				reporter(file.path, issues);
 			}).catch(function(error) {
 				out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
 			});
