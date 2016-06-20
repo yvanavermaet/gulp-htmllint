@@ -33,11 +33,17 @@ function htmllintReporter(filepath, issues) {
 
 ### Options
 
+#### options.rules
+Type `Object`
+Default value: (will parse `options.config` if not set)
+
+Object containing [htmllint options](https://github.com/htmllint/htmllint/wiki/Options).
+
 #### options.config
 Type: `String`
 Default value: `.htmllintrc`
 
-Config containing [htmllint options](https://github.com/htmllint/htmllint/wiki/Options).
+Configuration file containing [htmllint options](https://github.com/htmllint/htmllint/wiki/Options).
 
 #### options.plugins
 Type: `Array`
