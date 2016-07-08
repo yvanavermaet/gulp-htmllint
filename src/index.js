@@ -17,9 +17,13 @@ module.exports = function(options, reporter) {
 	configPath = options.config || '.htmllintrc';
 	plugins = options.plugins || [];
 
-	// load htmllint rules
-	if (fs.existsSync(configPath)) {
-		htmllintOptions = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+	if (options.rules) {
+		htmllintOptions = options.rules;
+	} else {
+		// load htmllint rules
+		if (fs.existsSync(configPath)) {
+			htmllintOptions = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+		}
 	}
 
 	// use plugins
