@@ -61,6 +61,17 @@ Boolean value to define if the process should exit with a code of 1 on htmllint 
 
 The custom reporter is a function which accepts 2 parameters: filepath and an array of issues as returned by the htmlling-plugin.
 
+## Results
+
+Add the property htmllint to the file object, which is available to streams that follow the htmllint stream. The property htmllint has the following format:
+
+```js
+{
+	"success": false, // or true for passing htmllint successfully
+	"issues": [] // an array of issues as returned by htmllint
+}
+```
+
 [npm-url]: https://www.npmjs.com/package/gulp-htmllint
 [npm-image]: https://badge.fury.io/js/gulp-htmllint.svg
 [travis-url]: https://travis-ci.org/yvanavermaet/gulp-htmllint
