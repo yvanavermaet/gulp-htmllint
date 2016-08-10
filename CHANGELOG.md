@@ -1,6 +1,9 @@
 Release History
 ---------------
 
+### v0.0.10
+* Update htmllint dependency
+
 ### v0.0.9
 * Add 'rules'-option to pass htmllint options directly
 
