@@ -22,7 +22,7 @@
 	"main": "./src/index.js",
 	"dependencies": {
 		"gulp-util": "^3.0.7",
-		"htmllint": "^0.3.0",
+		"htmllint": "^0.4.0",
 		"through2": "^2.0.1"
 	},
 	"devDependencies": {
