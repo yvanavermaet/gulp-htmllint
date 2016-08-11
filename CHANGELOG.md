@@ -1,5 +1,7 @@
 Release History
 ---------------
+### v0.0.10
+* Add the property htmllint to the file object
 
 ### v0.0.10
 * Update htmllint dependency

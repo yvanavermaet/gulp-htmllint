@@ -50,31 +50,35 @@ module.exports = function(options, reporter) {
 
 		lint = htmllint(file.contents.toString(), htmllintOptions);
 
-		if (typeof reporter === 'function') {
-			lint.then(function(issues) {
-				issues.forEach(function(issue) {
-					issue.msg = issue.msg || htmllint.messages.renderIssue(issue);
-				});
-
-				reporter(file.path, issues);
-			}).catch(function(error) {
-				out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
+		lint.then(function(issues) {
+			issues.forEach(function(issue) {
+				issue.msg = issue.msg || htmllint.messages.renderIssue(issue);
 			});
-		} else {
-			lint.then(function(issues) {
+
+			// Add the property htmllint to the file object
+			file.htmllint = {};
+			if (issues.length > 0) {
+				file.htmllint.success = false;
+			} else {
+				file.htmllint.success = true;
+			}
+			file.htmllint.issues = issues;
+			cb(null, file);
+
+			if (typeof reporter === 'function') {
+				reporter(file.path, issues);
+			} else {
 				if (issues.length > 0) {
 					out.push('\n' + file.path);
 				}
 
 				issues.forEach(function(issue) {
-					out.push(gutil.colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + (issue.msg || htmllint.messages.renderIssue(issue)) + ' (' + issue.code + ')'));
+					out.push(gutil.colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + issue.msg + ' (' + issue.code + ')'));
 				});
-			}).catch(function(error) {
-				out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
-			});
-		}
-
-		cb(null, file);
+			}
+		}).catch(function(error) {
+			out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
+		});
 	}, function(cb) {
 		if (out.length > 0) {
 			gutil.log(out.join('\n'));
