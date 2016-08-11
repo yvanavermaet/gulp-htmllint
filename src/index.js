@@ -57,13 +57,8 @@ module.exports = function(options, reporter) {
 
 			// Add the property htmllint to the file object
 			file.htmllint = {};
-			if (issues.length > 0) {
-				file.htmllint.success = false;
-			} else {
-				file.htmllint.success = true;
-			}
+			file.htmllint.success = issues.length === 0;
 			file.htmllint.issues = issues;
-			cb(null, file);
 
 			if (typeof reporter === 'function') {
 				reporter(file.path, issues);
@@ -76,6 +71,8 @@ module.exports = function(options, reporter) {
 					out.push(gutil.colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + issue.msg + ' (' + issue.code + ')'));
 				});
 			}
+
+			cb(null, file);
 		}).catch(function(error) {
 			out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
 		});
