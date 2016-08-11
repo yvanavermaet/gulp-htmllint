@@ -1,6 +1,6 @@
 Release History
 ---------------
-### v0.0.10
+### v0.0.11
 * Add the property htmllint to the file object
 
 ### v0.0.10

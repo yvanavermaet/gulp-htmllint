@@ -1,6 +1,6 @@
 {
 	"name": "gulp-htmllint",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"description": "Check HTML code style with htmllint",
 	"license": "MIT",
 	"repository": {
@@ -39,6 +39,7 @@
 	},
 	"homepage": "https://github.com/yvanavermaet/gulp-htmllint",
 	"contributors": [{
-		"name": "Rickard Staaf"
+		"name": "Rickard Staaf",
+		"name": "Vinzid"
 	}]
 }
