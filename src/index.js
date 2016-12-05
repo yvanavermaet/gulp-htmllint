@@ -86,7 +86,8 @@ module.exports = function(options, reporter) {
 			gutil.log(out.join('\n'));
 		}
 		if (options.failOnError && hasErrors) {
-			process.exitCode = 1;
+			this.emit('error', new gutil.PluginError('gulp-htmllint', 'Linter errors occurred!'));
+			this.emit('end');
 		}
 		cb();
 	});
