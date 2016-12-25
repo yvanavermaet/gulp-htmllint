@@ -7,6 +7,10 @@ This module is an interface layer for [htmllint](https://github.com/htmllint/htm
 ```sh
 $ npm install gulp-htmllint --save-dev
 ```
+or
+```sh
+$ yarn add gulp-htmllint --dev
+```
 
 ## Usage
 
