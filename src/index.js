@@ -8,7 +8,8 @@ var fs = require('fs'),
 module.exports = function(options, reporter) {
 	var configPath, plugins,
 		htmllintOptions = {},
-		out = [];
+		out = [],
+		hasErrors;
 
 	if (typeof options === 'undefined') {
 		options = {};
@@ -72,6 +73,10 @@ module.exports = function(options, reporter) {
 				});
 			}
 
+			if (issues.length > 0) {
+				hasErrors = true;
+			}
+
 			cb(null, file);
 		}).catch(function(error) {
 			out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
@@ -79,12 +84,11 @@ module.exports = function(options, reporter) {
 	}, function(cb) {
 		if (out.length > 0) {
 			gutil.log(out.join('\n'));
-
-			if (options.failOnError) {
-				process.exitCode = 1;
-			}
 		}
-
+		if (options.failOnError && hasErrors) {
+			this.emit('error', new gutil.PluginError('gulp-htmllint', 'Linter errors occurred!'));
+			this.emit('end');
+		}
 		cb();
 	});
 };
