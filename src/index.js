@@ -76,6 +76,7 @@ module.exports = function(options, reporter) {
 		}).catch(function(error) {
 			out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
 			cb(null, file);
+			process.exit(1);
 		});
 	}, function(cb) {
 		if (out.length > 0) {
