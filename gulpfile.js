@@ -11,10 +11,10 @@ gulp.task('lint', function() {
 		'./test/**/*.js',
 		'./gulpfile.js'
 	])
-	.pipe(eslint())
-	.on('error', function() {})
-	.pipe(eslint.format())
-	.pipe(eslint.failAfterError());
+		.pipe(eslint())
+		.on('error', function() {})
+		.pipe(eslint.format())
+		.pipe(eslint.failAfterError());
 });
 
 // travis

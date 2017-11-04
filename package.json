@@ -22,15 +22,15 @@
 	"main": "./src/index.js",
 	"dependencies": {
 		"gulp-util": "^3.0.8",
-		"htmllint": "^0.6.0",
+		"htmllint": "^0.7.0",
 		"through2": "^2.0.3"
 	},
 	"devDependencies": {
 		"gulp": "^3.9.1",
-		"gulp-eslint": "^3.0.1",
-		"gulp-mocha": "^3.0.1",
-		"chai": "^3.5.0",
-		"vinyl": "^2.0.1"
+		"gulp-eslint": "^4.0.0",
+		"gulp-mocha": "^4.3.1",
+		"chai": "^4.1.2",
+		"vinyl": "^2.1.0"
 	},
 	"scripts": {
 		"test": "./node_modules/gulp/bin/gulp.js test"
@@ -39,8 +39,9 @@
 		"url": "https://github.com/yvanavermaet/gulp-htmllint/issues"
 	},
 	"homepage": "https://github.com/yvanavermaet/gulp-htmllint",
-	"contributors": [{
-		"name": "Rickard Staaf",
-		"name": "Vinzid"
-	}]
+	"contributors": [
+		{
+			"name": "Vinzid"
+		}
+	]
 }
