@@ -1,5 +1,9 @@
 Release History
 ---------------
+### v0.0.13
+* Update dependencies (incl. htmllint@0.0.7)
+* Cleanup some code
+
 ### v0.0.12
 * Update dependencies (incl. htmllint@0.0.6)
 
