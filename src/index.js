@@ -5,17 +5,9 @@ var fs = require('fs'),
 	htmllint = require('htmllint'),
 	through = require('through2');
 
-module.exports = function(options, reporter) {
-	var configPath, plugins,
-		htmllintOptions = {},
-		out = [];
-
-	if (typeof options === 'undefined') {
-		options = {};
-	}
-
-	configPath = options.config || '.htmllintrc';
-	plugins = options.plugins || [];
+function getOptions(options) {
+	var htmllintOptions = {},
+		configPath = options.config || '.htmllintrc';
 
 	if (options.rules) {
 		htmllintOptions = options.rules;
@@ -26,12 +18,30 @@ module.exports = function(options, reporter) {
 		}
 	}
 
-	// use plugins
-	htmllint.use(plugins);
-
 	if (options.maxerr) {
 		htmllintOptions.maxerr = options.maxerr;
 	}
+
+	return htmllintOptions;
+}
+
+function getPlugins(options) {
+	if (typeof options !== 'undefined' && options.plugins) {
+		return options.plugins;
+	}
+
+	return [];
+}
+
+function lintFiles(options, reporter) {
+	var out = [];
+
+	if (typeof options === 'undefined') {
+		options = {};
+	}
+
+	// use plugins
+	htmllint.use(getPlugins());
 
 	return through.obj(function(file, enc, cb) {
 		var lint;
@@ -48,7 +58,7 @@ module.exports = function(options, reporter) {
 			return;
 		}
 
-		lint = htmllint(file.contents.toString(), htmllintOptions);
+		lint = htmllint(file.contents.toString(), getOptions());
 
 		lint.then(function(issues) {
 			issues.forEach(function(issue) {
@@ -87,4 +97,6 @@ module.exports = function(options, reporter) {
 
 		cb();
 	});
-};
+}
+
+module.exports = lintFiles;
