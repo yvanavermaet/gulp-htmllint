@@ -26,7 +26,7 @@ function getOptions(options) {
 }
 
 function getPlugins(options) {
-	if (typeof options !== 'undefined' && options.plugins) {
+	if (options.plugins) {
 		return options.plugins;
 	}
 
@@ -41,7 +41,7 @@ function lintFiles(options, reporter) {
 	}
 
 	// use plugins
-	htmllint.use(getPlugins());
+	htmllint.use(getPlugins(options));
 
 	return through.obj(function(file, enc, cb) {
 		var lint;
@@ -58,7 +58,7 @@ function lintFiles(options, reporter) {
 			return;
 		}
 
-		lint = htmllint(file.contents.toString(), getOptions());
+		lint = htmllint(file.contents.toString(), getOptions(options));
 
 		lint.then(function(issues) {
 			issues.forEach(function(issue) {

@@ -1,5 +1,8 @@
 Release History
 ---------------
+### v0.0.14
+* Fix bug: pass along options to getPlugins and getOptions
+
 ### v0.0.13
 * Update dependencies (incl. htmllint@0.0.7)
 * Cleanup some code
