@@ -29,8 +29,7 @@
 		"gulp": "^3.9.1",
 		"gulp-eslint": "^4.0.0",
 		"gulp-mocha": "^4.3.1",
-		"chai": "^4.1.2",
-		"vinyl": "^2.1.0"
+		"chai": "^4.1.2"
 	},
 	"scripts": {
 		"test": "./node_modules/gulp/bin/gulp.js test"

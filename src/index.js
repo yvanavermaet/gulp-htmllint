@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable */
+
 var fs = require('fs'),
 	gutil = require('gulp-util'),
 	htmllint = require('htmllint'),
@@ -14,7 +16,11 @@ function getOptions(options) {
 	} else {
 		// load htmllint rules
 		if (fs.existsSync(configPath)) {
-			htmllintOptions = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+			try {
+				htmllintOptions = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+			} catch (e) {
+				gutil.log(gutil.colors.red('Could not process .htmllintrc'));
+			}
 		}
 	}
 
@@ -26,15 +32,12 @@ function getOptions(options) {
 }
 
 function getPlugins(options) {
-	if (options.plugins) {
-		return options.plugins;
-	}
-
-	return [];
+	return options.plugins || [];
 }
 
 function lintFiles(options, reporter) {
-	var out = [];
+	var out = [],
+		errorCount = 0;
 
 	if (typeof options === 'undefined') {
 		options = {};
@@ -43,17 +46,18 @@ function lintFiles(options, reporter) {
 	// use plugins
 	htmllint.use(getPlugins(options));
 
-	return through.obj(function(file, enc, cb) {
+	function bufferContents(file, enc, cb) {
 		var lint;
 
 		if (file.isNull()) {
-			cb(null, file);
+			cb();
 
 			return;
 		}
 
 		if (file.isStream()) {
-			cb(new gutil.PluginError('gulp-htmllint', 'Streaming not supported'));
+			this.emit('error', new gutil.PluginError('gulp-htmllint', 'Streaming not supported'));
+			cb();
 
 			return;
 		}
@@ -61,6 +65,8 @@ function lintFiles(options, reporter) {
 		lint = htmllint(file.contents.toString(), getOptions(options));
 
 		lint.then(function(issues) {
+			errorCount += issues.length;
+
 			issues.forEach(function(issue) {
 				issue.msg = issue.msg || htmllint.messages.renderIssue(issue);
 			});
@@ -82,21 +88,27 @@ function lintFiles(options, reporter) {
 				});
 			}
 
-			cb(null, file);
+			cb();
 		}).catch(function(error) {
 			out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
+			cb();
 		});
-	}, function(cb) {
+	}
+
+	function endStream(cb) {
 		if (out.length > 0) {
 			gutil.log(out.join('\n'));
-
-			if (options.failOnError) {
-				process.exitCode = 1;
-			}
 		}
 
+		if (options.failOnError && errorCount > 0) {
+			this.emit('error', new gutil.PluginError('gulp-htmllint', errorCount + ' error(s) occurred'));
+		}
+
+		this.emit('end');
 		cb();
-	});
+	}
+
+	return through.obj(bufferContents, endStream);
 }
 
 module.exports = lintFiles;
