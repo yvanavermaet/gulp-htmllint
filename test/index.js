@@ -3,8 +3,7 @@
 /* eslint-disable */
 
 var expect = require('chai').expect,
-	gulp = require('gulp'),
-	gutil = require('gulp-util');
+	gulp = require('gulp');
 
 describe('gulp-htmllint', function() {
 	var htmllint = require('../');
