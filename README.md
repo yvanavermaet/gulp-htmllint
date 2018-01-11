@@ -12,8 +12,9 @@ $ npm install gulp-htmllint --save-dev
 
 ```js
 var gulp = require('gulp'),
-	htmllint = require('gulp-htmllint')
-	gutil = require('gulp-util');
+	htmllint = require('gulp-htmllint'),
+	fancyLog = require('fancy-log'),
+	colors = require('ansi-colors');
 
 gulp.task('default', function() {
 	return gulp.src('src/index.html')
@@ -23,7 +24,7 @@ gulp.task('default', function() {
 function htmllintReporter(filepath, issues) {
 	if (issues.length > 0) {
 		issues.forEach(function (issue) {
-			gutil.log(gutil.colors.cyan('[gulp-htmllint] ') + gutil.colors.white(filepath + ' [' + issue.line + ',' + issue.column + ']: ') + gutil.colors.red('(' + issue.code + ') ' + issue.msg));
+			fancyLog(colors.cyan('[gulp-htmllint] ') + colors.white(filepath + ' [' + issue.line + ',' + issue.column + ']: ') + colors.red('(' + issue.code + ') ' + issue.msg));
 		});
 
 		process.exitCode = 1;

@@ -3,7 +3,9 @@
 /* eslint-disable */
 
 var fs = require('fs'),
-	gutil = require('gulp-util'),
+	colors = require('ansi-colors'),
+	fancyLog = require('fancy-log'),
+	PluginError = require('plugin-error'),
 	htmllint = require('htmllint'),
 	through = require('through2');
 
@@ -19,7 +21,7 @@ function getOptions(options) {
 			try {
 				htmllintOptions = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 			} catch (e) {
-				gutil.log(gutil.colors.red('Could not process .htmllintrc'));
+				fancyLog(colors.red('Could not process .htmllintrc'));
 			}
 		}
 	}
@@ -56,7 +58,7 @@ function lintFiles(options, reporter) {
 		}
 
 		if (file.isStream()) {
-			this.emit('error', new gutil.PluginError('gulp-htmllint', 'Streaming not supported'));
+			this.emit('error', new PluginError('gulp-htmllint', 'Streaming not supported'));
 			cb();
 
 			return;
@@ -84,24 +86,24 @@ function lintFiles(options, reporter) {
 				}
 
 				issues.forEach(function(issue) {
-					out.push(gutil.colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + issue.msg + ' (' + issue.code + ')'));
+					out.push(colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + issue.msg + ' (' + issue.code + ')'));
 				});
 			}
 
 			cb();
 		}).catch(function(error) {
-			out.push('\n' + file.path + '\n' + gutil.colors.red(error.toString()));
+			out.push('\n' + file.path + '\n' + colors.red(error.toString()));
 			cb();
 		});
 	}
 
 	function endStream(cb) {
 		if (out.length > 0) {
-			gutil.log(out.join('\n'));
+			fancyLog(out.join('\n'));
 		}
 
 		if (options.failOnError && errorCount > 0) {
-			this.emit('error', new gutil.PluginError('gulp-htmllint', errorCount + ' error(s) occurred'));
+			this.emit('error', new PluginError('gulp-htmllint', errorCount + ' error(s) occurred'));
 		}
 
 		this.emit('end');
