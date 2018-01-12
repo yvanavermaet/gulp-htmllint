@@ -1,6 +1,6 @@
 {
 	"name": "gulp-htmllint",
-	"version": "0.0.14",
+	"version": "0.0.15",
 	"description": "Check HTML code style with htmllint",
 	"license": "MIT",
 	"repository": {
