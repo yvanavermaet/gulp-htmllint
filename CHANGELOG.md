@@ -1,5 +1,10 @@
 Release History
 ---------------
+### v0.0.15
+* Replace gulp-util
+* Bugfix: failOnError: true with custom reporter did not actually fail
+* Added a few more tests
+
 ### v0.0.14
 * Fix bug: pass along options to getPlugins and getOptions
 

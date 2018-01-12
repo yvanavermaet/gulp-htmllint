@@ -1,6 +1,6 @@
 'use strict';
 
-/* eslint-disable */
+/* eslint-disable object-curly-newline, function-paren-newline, no-empty-function */
 
 var expect = require('chai').expect,
 	gulp = require('gulp');
@@ -19,9 +19,9 @@ describe('gulp-htmllint', function() {
 	});
 
 	it('should emit error on streamed file', function(done) {
-		gulp.src('test/fixtures/stream.html', { buffer: false })
+		gulp.src('test/fixtures/stream.html', {'buffer': false})
 			.pipe(htmllint())
-			.on('error', function (err) {
+			.on('error', function(err) {
 				expect(err.message).to.equal('Streaming not supported');
 
 				done();
@@ -36,7 +36,7 @@ describe('gulp-htmllint', function() {
 				},
 				function reporter() {}
 			))
-			.on('error', function (err) {
+			.on('error', function(err) {
 				expect(err.message).to.equal('3 error(s) occurred');
 			})
 			.on('end', done);

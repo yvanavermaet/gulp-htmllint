@@ -1,7 +1,5 @@
 'use strict';
 
-/* eslint-disable */
-
 var fs = require('fs'),
 	colors = require('ansi-colors'),
 	fancyLog = require('fancy-log'),
