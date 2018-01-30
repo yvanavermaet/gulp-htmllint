@@ -19,7 +19,7 @@ function getOptions(options) {
 			try {
 				htmllintOptions = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 			} catch (e) {
-				fancyLog(colors.red('Could not process .htmllintrc'));
+				fancyLog(colors.red('Could not process ' + configPath));
 			}
 		}
 	}
