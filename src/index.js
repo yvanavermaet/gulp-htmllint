@@ -5,7 +5,8 @@ var fs = require('fs'),
 	fancyLog = require('fancy-log'),
 	PluginError = require('plugin-error'),
 	htmllint = require('htmllint'),
-	through = require('through2');
+	through = require('through2'),
+	defaultReporter = require('./default-reporter').report;
 
 function getOptions(options) {
 	var htmllintOptions = {},
@@ -35,7 +36,7 @@ function getPlugins(options) {
 	return options.plugins || [];
 }
 
-function lintFiles(options, reporter) {
+function lintFiles(options, customReporter) {
 	var out = [],
 		errorCount = 0;
 
@@ -76,16 +77,10 @@ function lintFiles(options, reporter) {
 			file.htmllint.success = issues.length === 0;
 			file.htmllint.issues = issues;
 
-			if (typeof reporter === 'function') {
-				reporter(file.path, issues);
+			if (typeof customReporter === 'function') {
+				customReporter(file.path, issues);
 			} else {
-				if (issues.length > 0) {
-					out.push('\n' + file.path);
-				}
-
-				issues.forEach(function(issue) {
-					out.push(colors.red('line ' + issue.line + '\tcol ' + issue.column + '\t' + issue.msg + ' (' + issue.code + ')'));
-				});
+				defaultReporter(file.path, issues);
 			}
 
 			cb();
