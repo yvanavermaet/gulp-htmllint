@@ -19,8 +19,10 @@ function getOptions(options) {
 			try {
 				htmllintOptions = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 			} catch (e) {
-				fancyLog(colors.red('Could not process ' + configPath));
+				fancyLog(colors.red('Could not process ' + configPath + '. Using default htmllint configuration instead'));
 			}
+		} else {
+			fancyLog(colors.red('Could not find ' + configPath + '. Using default htmllint configuration instead'));
 		}
 	}
 
