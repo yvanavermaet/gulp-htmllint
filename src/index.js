@@ -50,14 +50,14 @@ function lintFiles(options, reporter) {
 		var lint;
 
 		if (file.isNull()) {
-			cb();
+			cb(null, file);
 
 			return;
 		}
 
 		if (file.isStream()) {
 			this.emit('error', new PluginError('gulp-htmllint', 'Streaming not supported'));
-			cb();
+			cb(null, file);
 
 			return;
 		}
@@ -88,10 +88,10 @@ function lintFiles(options, reporter) {
 				});
 			}
 
-			cb();
+			cb(null, file);
 		}).catch(function(error) {
 			out.push('\n' + file.path + '\n' + colors.red(error.toString()));
-			cb();
+			cb(null, file);
 		});
 	}
 
