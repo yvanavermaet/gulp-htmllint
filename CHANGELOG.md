@@ -1,5 +1,11 @@
 Release History
 ---------------
+### v0.0.17
+* Update dependencies (incl. htmllint@0.0.8)
+
+### v0.0.16
+* Bugfix: pass file to cb function
+
 ### v0.0.15
 * Replace gulp-util
 * Bugfix: failOnError: true with custom reporter did not actually fail
