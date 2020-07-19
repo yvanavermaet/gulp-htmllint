@@ -1,5 +1,8 @@
 Release History
 ---------------
+### v0.0.19
+* Update travis configuration
+
 ### v0.0.18
 * Update devDependencies
 
