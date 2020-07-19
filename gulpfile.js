@@ -4,7 +4,7 @@
 
 var gulp = require('gulp'),
 	eslint = require('gulp-eslint'),
-	mocha = require('gulp-mocha');
+	gulpMocha = require('gulp-mocha');
 
 // lint
 gulp.task('lint', function() {
@@ -15,12 +15,17 @@ gulp.task('lint', function() {
 		.pipe(eslint.failAfterError());
 });
 
+
+
+
 // travis
-gulp.task('test', ['lint'], function() {
+gulp.task('test', gulp.series('lint', function runMocha() {
 	return gulp.src('./test/**/*.js')
-		.pipe(mocha())
+		.pipe(gulpMocha())
 		.on('error', function() {});
-});
+}));
+
+
 
 // default task
-gulp.task('default', ['lint'], function() {});
+gulp.task('default', gulp.series('lint'));

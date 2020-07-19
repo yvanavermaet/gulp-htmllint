@@ -1,9 +1,0 @@
-globals:
-  require: false
-  module: false
-
-env:
-  mocha: true
-
-extends:
-  - persgroep

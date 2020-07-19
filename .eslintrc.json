@@ -1,0 +1,15 @@
+{
+  "globals": {
+    "require": false,
+    "module": false
+  },
+  "env": {
+    "mocha": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "rules": {
+    "quotes": ["error", "single"]
+  }
+}

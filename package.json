@@ -1,6 +1,6 @@
 {
   "name": "gulp-htmllint",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Check HTML code style with htmllint",
   "license": "MIT",
   "repository": {
@@ -28,12 +28,11 @@
     "through2": "^4.0.2"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-persgroep": "^2.0.0",
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^4.0.2",
-    "gulp-mocha": "^6.0.0",
-    "chai": "^4.1.2"
+    "eslint": "^7.5.0",
+    "gulp": "^4.0.2",
+    "gulp-eslint": "^6.0.0",
+    "gulp-mocha": "^7.0.2",
+    "chai": "^4.2.0"
   },
   "scripts": {
     "test": "./node_modules/gulp/bin/gulp.js test"

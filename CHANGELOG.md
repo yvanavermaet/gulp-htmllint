@@ -1,5 +1,8 @@
 Release History
 ---------------
+### v0.0.18
+* Update devDependencies
+
 ### v0.0.17
 * Update dependencies (incl. htmllint@0.0.8)
 
