@@ -31,7 +31,7 @@
     "eslint": "^7.5.0",
     "gulp": "^4.0.2",
     "gulp-eslint": "^6.0.0",
-    "gulp-mocha": "^7.0.2",
+    "gulp-mocha": "^8.0.0",
     "chai": "^4.2.0"
   },
   "scripts": {
